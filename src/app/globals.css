@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  --color-naka-black: #0a0a0a;
+  --color-naka-white: #ffffff;
+  --color-naka-cream: #f7f7f7;
+  --color-naka-warm: #f4f1ea;
+  --color-naka-gold: #e3c100;
+  --color-naka-text: #1a1a1a;
+  --color-naka-muted: #707070;
+  --color-naka-light: #999;
+  --color-naka-border: rgba(0, 0, 0, 0.08);
+  --color-naka-periwinkle: #7f98fa;
+  --color-naka-green: #63c58f;
+  --color-naka-orange: #fb963c;
+  --color-naka-dark-green: #23583b;
+  --color-naka-dark-blue: #2e35a5;
+  --color-naka-dark-orange: #b24f15;
+  --color-naka-dark-text: #111;
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-instrument-sans);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-inter);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #faf9f6;
+    color: var(--color-naka-text);
+  }
+  ::selection {
+    background: var(--color-naka-gold);
+    color: var(--color-naka-black);
+  }
+}
+
+html { scroll-behavior: smooth; }
+
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-3deg); }
+  50% { transform: translate3d(0, -12px, 0) rotate(-1deg); }
+}
+
+.editorial-card {
+  box-shadow: 0 1px 1px rgb(17 17 17 / 3%), 0 10px 30px rgb(17 17 17 / 7%);
+}
+
+.premium-button {
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 20%) inset,
+    0 12px 26px rgb(0 0 0 / 16%),
+    0 2px 8px rgb(0 0 0 / 10%);
+  transition: transform 320ms ease, box-shadow 320ms ease, background-color 320ms ease, color 320ms ease;
+}
+
+.premium-button:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 24%) inset,
+    0 20px 38px rgb(0 0 0 / 20%),
+    0 4px 14px rgb(0 0 0 / 12%);
+}
+
+.about-feature-card {
+  box-shadow:
+    0 20px 40px rgb(0 0 0 / 15%),
+    0 40px 80px rgb(0 0 0 / 8%),
+    0 80px 120px rgb(0 0 0 / 5%);
+}
+
+.project-art::before,
+.project-art::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(1px);
+}
+
+.project-art::before {
+  width: 62%; height: 62%; right: -10%; top: -16%;
+  background: rgb(255 255 255 / 24%);
+}
+
+.project-art::after {
+  width: 45%; height: 45%; bottom: -18%; left: 8%;
+  background: rgb(10 10 10 / 18%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .project-art > span { animation: float 6s ease-in-out infinite; }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

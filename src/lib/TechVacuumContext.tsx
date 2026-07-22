@@ -29,8 +29,8 @@ const allTechs: TechItem[] = [
 ];
 
 export const cardTechMap: Record<string, string[]> = {
-  "Web Dev": ["Python", "JavaScript", "TypeScript", "Next.js", "FastAPI", "SQL"],
-  "AI & Data": ["LangChain", "ChromaDB", "PostgreSQL", "MLflow", "LangGraph"],
+  "Web Dev": ["Python", "JavaScript", "TypeScript", "Next.js", "FastAPI"],
+  "AI & Data": ["SQL", "LangChain", "ChromaDB", "PostgreSQL", "MLflow", "LangGraph"],
   "DevOps": ["Docker", "Git", "Linux", "Kubernetes", "CI/CD"],
 };
 

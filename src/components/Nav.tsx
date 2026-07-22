@@ -1,13 +1,13 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Briefcase, HelpCircle, Mail, Menu, User, X } from "lucide-react";
 import { useState } from "react";
 
 const links = [
-  { label: "About", href: "#about" },
-  { label: "Work", href: "#projects" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "#about", icon: User },
+  { label: "Work", href: "#projects", icon: Briefcase },
+  { label: "FAQ", href: "#faq", icon: HelpCircle },
+  { label: "Contact", href: "#contact", icon: Mail },
 ];
 
 export default function Nav() {
@@ -73,8 +73,9 @@ export default function Nav() {
                     initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: 0.03 + i * 0.04, ease: [0.32, 0.72, 0, 1] }}
-                    className="block rounded-[10px] px-4 py-2.5 text-[14px] font-medium text-black/65 transition-colors hover:bg-black/[0.04] hover:text-black"
+                    className="flex items-center gap-3 rounded-[10px] px-4 py-2.5 text-[14px] font-medium text-black/65 transition-colors hover:bg-black/[0.04] hover:text-black"
                   >
+                    <link.icon size={15} strokeWidth={1.8} className="text-black/35" />
                     {link.label}
                   </motion.a>
                 ))}

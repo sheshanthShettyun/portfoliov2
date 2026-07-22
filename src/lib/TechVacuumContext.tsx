@@ -29,9 +29,9 @@ const allTechs: TechItem[] = [
 ];
 
 export const cardTechMap: Record<string, string[]> = {
-  "Languages & Web": ["Python", "JavaScript", "TypeScript", "Next.js", "FastAPI", "SQL"],
+  "Web Dev": ["Python", "JavaScript", "TypeScript", "Next.js", "FastAPI", "SQL"],
   "AI & Data": ["LangChain", "ChromaDB", "PostgreSQL", "MLflow", "LangGraph"],
-  "DevOps & Tools": ["Docker", "Git", "Linux", "Kubernetes", "CI/CD"],
+  "DevOps": ["Docker", "Git", "Linux", "Kubernetes", "CI/CD"],
 };
 
 type VacuumContextType = {

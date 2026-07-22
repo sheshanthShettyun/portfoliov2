@@ -4,33 +4,35 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTechVacuum } from "@/lib/TechVacuumContext";
 
 const stack = [
-  { name: "Python", abbr: "Py", bg: "#3776AB", fg: "#FFD43B" },
-  { name: "JavaScript", abbr: "JS", bg: "#F7DF1E", fg: "#000000" },
-  { name: "TypeScript", abbr: "TS", bg: "#3178C6", fg: "#ffffff" },
-  { name: "Next.js", abbr: "Nx", bg: "#000000", fg: "#ffffff" },
-  { name: "FastAPI", abbr: "FA", bg: "#009688", fg: "#ffffff" },
-  { name: "Docker", abbr: "Dk", bg: "#2496ED", fg: "#ffffff" },
-  { name: "PostgreSQL", abbr: "PG", bg: "#4169E1", fg: "#ffffff" },
+  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
+  { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" },
+  { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
+  { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" },
+  { name: "FastAPI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" },
+  { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
+  { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" },
+  { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg" },
+  { name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" },
+  { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" },
+  { name: "SQL", abbr: "SQ", bg: "#336791", fg: "#fff" },
   { name: "LangChain", abbr: "LC", bg: "#1C3C3C", fg: "#00D96B" },
-  { name: "Kubernetes", abbr: "K8", bg: "#326CE5", fg: "#ffffff" },
-  { name: "Linux", abbr: "Lx", bg: "#222222", fg: "#FCC624" },
-  { name: "Git", abbr: "Gi", bg: "#F05032", fg: "#ffffff" },
-  { name: "MLflow", abbr: "ML", bg: "#0194E2", fg: "#ffffff" },
+  { name: "ChromaDB", abbr: "Ch", bg: "#7B61FF", fg: "#fff" },
+  { name: "MLflow", abbr: "ML", bg: "#0194E2", fg: "#fff" },
   { name: "LangGraph", abbr: "LG", bg: "#1C3C3C", fg: "#00D96B" },
-  { name: "ChromaDB", abbr: "Ch", bg: "#7B61FF", fg: "#ffffff" },
-  { name: "SQL", abbr: "SQ", bg: "#336791", fg: "#ffffff" },
-  { name: "CI/CD", abbr: "CD", bg: "#555555", fg: "#ffffff" },
+  { name: "CI/CD", abbr: "CD", bg: "#555555", fg: "#fff" },
 ];
 
 function TechPill({ tech, layoutId }: { tech: (typeof stack)[0]; layoutId?: string }) {
   const el = (
     <span className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-black/[0.05] bg-white px-4 py-2.5 text-[13px] font-medium text-[#101010] shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-      <span
-        className="flex h-5 w-5 items-center justify-center rounded-[5px] text-[9px] font-bold"
-        style={{ backgroundColor: tech.bg, color: tech.fg }}
-      >
-        {tech.abbr}
-      </span>
+      {tech.logo ? (
+        <img src={tech.logo} alt={tech.name} className="h-4 w-4" loading="lazy" />
+      ) : (
+        <span className="flex h-5 w-5 items-center justify-center rounded-[5px] text-[9px] font-bold"
+          style={{ backgroundColor: tech.bg, color: tech.fg }}>
+          {tech.abbr}
+        </span>
+      )}
       {tech.name}
     </span>
   );

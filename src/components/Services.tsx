@@ -3,28 +3,28 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTechVacuum, cardTechMap } from "@/lib/TechVacuumContext";
 
 const services = [
-  ["01", "Languages & Web", "Building end-to-end applications with modern runtimes and frameworks — Python, JavaScript, SQL, Next.js, FastAPI, and REST APIs."],
-  ["02", "AI & Data", "Engineering RAG pipelines, vector search, and LLM-powered applications with LangChain, ChromaDB, PostgreSQL, and NoSQL."],
-  ["03", "DevOps & Tools", "Orchestrating deployments, automating pipelines, and shipping reliably with Docker, Git, Linux, CI/CD, and agentic coding tools."],
+  ["01", "Web Dev", "Building end-to-end applications with modern runtimes and frameworks."],
+  ["02", "AI & Data", "Engineering RAG pipelines, vector search, and LLM-powered applications."],
+  ["03", "DevOps", "Orchestrating deployments, automating pipelines, and shipping reliably."],
 ];
 
 const stack = [
-  { name: "Python", abbr: "Py", bg: "#3776AB", fg: "#FFD43B" },
-  { name: "JavaScript", abbr: "JS", bg: "#F7DF1E", fg: "#000000" },
-  { name: "TypeScript", abbr: "TS", bg: "#3178C6", fg: "#ffffff" },
-  { name: "Next.js", abbr: "Nx", bg: "#000000", fg: "#ffffff" },
-  { name: "FastAPI", abbr: "FA", bg: "#009688", fg: "#ffffff" },
-  { name: "Docker", abbr: "Dk", bg: "#2496ED", fg: "#ffffff" },
-  { name: "PostgreSQL", abbr: "PG", bg: "#4169E1", fg: "#ffffff" },
+  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
+  { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" },
+  { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
+  { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" },
+  { name: "FastAPI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" },
+  { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
+  { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" },
+  { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg" },
+  { name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" },
+  { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" },
+  { name: "SQL", abbr: "SQ", bg: "#336791", fg: "#fff" },
   { name: "LangChain", abbr: "LC", bg: "#1C3C3C", fg: "#00D96B" },
-  { name: "Kubernetes", abbr: "K8", bg: "#326CE5", fg: "#ffffff" },
-  { name: "Linux", abbr: "Lx", bg: "#222222", fg: "#FCC624" },
-  { name: "Git", abbr: "Gi", bg: "#F05032", fg: "#ffffff" },
-  { name: "MLflow", abbr: "ML", bg: "#0194E2", fg: "#ffffff" },
+  { name: "ChromaDB", abbr: "Ch", bg: "#7B61FF", fg: "#fff" },
+  { name: "MLflow", abbr: "ML", bg: "#0194E2", fg: "#fff" },
   { name: "LangGraph", abbr: "LG", bg: "#1C3C3C", fg: "#00D96B" },
-  { name: "ChromaDB", abbr: "Ch", bg: "#7B61FF", fg: "#ffffff" },
-  { name: "SQL", abbr: "SQ", bg: "#336791", fg: "#ffffff" },
-  { name: "CI/CD", abbr: "CD", bg: "#555555", fg: "#ffffff" },
+  { name: "CI/CD", abbr: "CD", bg: "#555555", fg: "#fff" },
 ];
 
 export default function Services() {
@@ -78,12 +78,14 @@ export default function Services() {
                                       layoutId={techName}
                                     >
                                       <span className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-black/[0.05] bg-white px-3 py-1.5 text-[11px] font-medium text-[#101010] shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-                                        <span
-                                          className="flex h-4 w-4 items-center justify-center rounded-[4px] text-[7px] font-bold"
-                                          style={{ backgroundColor: t.bg, color: t.fg }}
-                                        >
-                                          {t.abbr}
-                                        </span>
+                                        {t.logo ? (
+                                          <img src={t.logo} alt={t.name} className="h-3.5 w-3.5" loading="lazy" />
+                                        ) : (
+                                          <span className="flex h-4 w-4 items-center justify-center rounded-[4px] text-[7px] font-bold"
+                                            style={{ backgroundColor: t.bg, color: t.fg }}>
+                                            {t.abbr}
+                                          </span>
+                                        )}
                                         {t.name}
                                       </span>
                                     </motion.span>

@@ -6,6 +6,7 @@ import { ArrowUpRight, X } from "lucide-react";
 export type Project = {
   title: string;
   type: string;
+  subtitle?: string;
   image: string;
   copy: string;
   longDescription?: string;

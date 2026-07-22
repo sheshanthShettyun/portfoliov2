@@ -15,7 +15,7 @@ export default function Hero() {
           Digital products,<br />built to <em className="font-normal">reason.</em>
         </motion.h1>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.26, ease }} className="mt-10 flex flex-col justify-between gap-8 border-t border-black/15 pt-5 md:flex-row md:items-end">
-          <p className="max-w-md text-[15px] leading-[1.5] text-black/60 md:text-[17px]">I&apos;m Sriyaan — bridging machine learning and production infrastructure. Building autonomous systems, RAG pipelines, and agentic workflows that reason through complexity.</p>
+          <p className="max-w-md text-[15px] leading-[1.5] text-black/60 md:text-[17px]">I&apos;m Sriyaan, bridging machine learning and production infrastructure. Building autonomous systems, RAG pipelines, and agentic workflows that reason through complexity.</p>
           <div className="flex gap-3"><a href="#projects" className="premium-button rounded-full bg-[#101010] px-6 py-3 text-sm text-white">Explore work ↘</a><a href="#contact" className="rounded-full border border-black/20 px-6 py-3 text-sm transition-colors hover:bg-[#101010] hover:text-white">Let&apos;s talk</a></div>
         </motion.div>
       </div>

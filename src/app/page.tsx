@@ -6,6 +6,7 @@ import Services from "@/components/Services";
 import Projects from "@/components/Projects";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import ScrollProgress from "@/components/ScrollProgress";
 import { TechVacuumProvider } from "@/lib/TechVacuumContext";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <Projects />
       <FAQ />
       <Footer />
+      <ScrollProgress />
     </TechVacuumProvider>
   );
 }

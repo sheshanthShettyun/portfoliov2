@@ -8,7 +8,9 @@
         "/home/sriyaan/Documents/statekeeper-mcp/src/index.mjs"
       ],
       "enabled": true,
-      "cwd": "/home/sriyaan/Documents/opencode sessions"
+      "environment": {
+        "STATEKEEPER_PROJECT": "/home/sriyaan/Documents/opencode sessions"
+      }
     }
   }
 }

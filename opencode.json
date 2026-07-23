@@ -3,8 +3,12 @@
   "mcp": {
     "statekeeper": {
       "type": "local",
-      "command": ["node", "/home/sriyaan/Documents/statekeeper-mcp/src/index.mjs"],
-      "enabled": true
+      "command": [
+        "node",
+        "/home/sriyaan/Documents/statekeeper-mcp/src/index.mjs"
+      ],
+      "enabled": true,
+      "cwd": "/home/sriyaan/Documents/opencode sessions"
     }
   }
 }

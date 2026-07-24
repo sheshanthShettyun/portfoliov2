@@ -23,6 +23,9 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Sriyaan — Portfolio",
   description: "Building systems that scale",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

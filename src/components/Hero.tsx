@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
+const btnEase = [0.22, 0.61, 0.36, 1] as const;
 
 export default function Hero() {
   return (
@@ -16,7 +18,32 @@ export default function Hero() {
         </motion.h1>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.26, ease }} className="mt-10 flex flex-col justify-between gap-8 border-t border-black/15 pt-5 md:flex-row md:items-end">
           <p className="max-w-md text-[15px] leading-[1.5] text-black/60 md:text-[17px]">I&apos;m Sriyaan, bridging machine learning and production infrastructure. Building autonomous systems, RAG pipelines, and agentic workflows that reason through complexity.</p>
-          <div className="flex gap-3"><a href="#projects" className="premium-button rounded-full bg-[#101010] px-6 py-3 text-sm text-white">Explore work ↘</a><a href="#contact" className="rounded-full border border-black/20 px-6 py-3 text-sm transition-colors hover:bg-[#101010] hover:text-white">Let&apos;s talk</a></div>
+          <div className="flex gap-4">
+            <a
+              href="#projects"
+              className="group relative inline-flex h-[52px] items-center gap-3.5 rounded-full bg-[#111111] px-8 text-[15px] font-medium tracking-[-0.02em] text-white transition-all duration-[250ms] ease-[0.22,0.61,0.36,1] hover:translate-y-[-2px] hover:scale-[1.02] active:scale-[0.98]"
+              style={{
+                background: "linear-gradient(180deg, #1E1E1E 0%, #111111 100%)",
+                boxShadow: "0 14px 34px rgba(0,0,0,0.18), 0 6px 16px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.08)",
+              }}
+            >
+              Explore work
+              <ArrowRight className="h-[18px] w-[18px] transition-transform duration-[250ms] ease-[0.22,0.61,0.36,1] group-hover:translate-x-1" strokeWidth={1.8} />
+              <span className="absolute inset-0 rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.22),0_8px_20px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.08)] opacity-0 transition-opacity duration-[250ms] group-hover:opacity-100" />
+            </a>
+            <a
+              href="#contact"
+              className="group relative inline-flex h-[52px] items-center gap-3.5 rounded-full border border-black/[0.08] bg-white/75 px-7 text-[15px] font-medium tracking-[-0.02em] text-black/80 transition-all duration-[250ms] ease-[0.22,0.61,0.36,1] hover:translate-y-[-2px] hover:bg-white hover:border-black/15 active:scale-[0.98]"
+              style={{
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+              }}
+            >
+              Let&apos;s talk
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-[250ms] ease-[0.22,0.61,0.36,1] group-hover:translate-x-1"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+              <span className="absolute inset-0 rounded-full shadow-[0_10px_24px_rgba(0,0,0,0.06),0_4px_10px_rgba(0,0,0,0.04)] opacity-0 transition-opacity duration-[250ms] group-hover:opacity-100" />
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>

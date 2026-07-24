@@ -11,6 +11,16 @@
       "environment": {
         "STATEKEEPER_PROJECT": "/home/sriyaan/Documents/opencode sessions"
       }
+    },
+    "eraser": {
+      "type": "http",
+      "url": "https://app.eraser.io/api/mcp",
+      "enabled": true
+    },
+    "figma": {
+      "type": "remote",
+      "url": "https://mcp.figma.com/mcp",
+      "enabled": true
     }
   }
 }

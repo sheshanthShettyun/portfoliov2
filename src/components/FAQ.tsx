@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Plus } from "lucide-react";
+import { ArrowRight, Plus, Check } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const faqs = [
   {
@@ -31,9 +32,22 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [name, setName] = useState("");
+  const [question, setQuestion] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [focused, setFocused] = useState<string | null>(null);
 
   const toggle = (index: number) =>
     setOpenIndex(openIndex === index ? null : index);
+
+  const isValid = name.trim() && question.trim();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isValid) return;
+    await supabase.from("questions").insert({ name: name.trim(), question: question.trim() });
+    setSubmitted(true);
+  };
 
   return (
     <section id="faq" className="bg-[#f7f7f5] py-24 text-[#101010] md:py-36">
@@ -53,12 +67,69 @@ export default function FAQ() {
           <p className="mt-6 max-w-xs text-sm leading-relaxed text-black/55">
             Process, timelines, data privacy, and what happens after delivery.
           </p>
-          <a
-            href="#contact"
-            className="premium-button mt-8 inline-flex items-center rounded-full bg-[#101010] px-5 py-3 text-sm text-white"
-          >
-            Ask directly <ArrowUpRight className="ml-2 h-4 w-4" />
-          </a>
+
+          {submitted ? (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease }}
+              className="mt-8 flex items-start gap-3 rounded-2xl bg-black/[0.03] p-5"
+            >
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black/[0.06]">
+                <Check size={14} className="text-black/50" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-black/70">Question sent</p>
+                <p className="mt-1 text-[13px] leading-relaxed text-black/40">
+                  I'll get back to you soon. In the meantime, check the answers on the right.
+                </p>
+              </div>
+            </motion.div>
+          ) : (
+            <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+              <div
+                className={`rounded-xl bg-black/[0.03] px-4 py-3 transition-all duration-300 ${
+                  focused === "name" ? "bg-black/[0.05] ring-1 ring-black/10" : ""
+                }`}
+              >
+                <input
+                  type="text"
+                  placeholder="Your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  onFocus={() => setFocused("name")}
+                  onBlur={() => setFocused(null)}
+                  autoComplete="off"
+                  className="w-full bg-transparent text-[14px] text-black/80 placeholder:text-black/30 outline-none"
+                />
+              </div>
+              <div
+                className={`rounded-xl bg-black/[0.03] px-4 py-3 transition-all duration-300 ${
+                  focused === "question" ? "bg-black/[0.05] ring-1 ring-black/10" : ""
+                }`}
+              >
+                <textarea
+                  placeholder="What would you like to ask?"
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  onFocus={() => setFocused("question")}
+                  onBlur={() => setFocused(null)}
+                  rows={3}
+                  className="w-full resize-none bg-transparent text-[14px] text-black/80 placeholder:text-black/30 outline-none"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={name === "" || question === ""}
+                suppressHydrationWarning
+                className={`premium-button inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm text-white transition-all duration-300 ${
+                  isValid ? "bg-[#101010] hover:bg-[#1a1a1a]" : "bg-black/20 cursor-not-allowed"
+                }`}
+              >
+                Send question <ArrowRight className="h-4 w-4" />
+              </button>
+            </form>
+          )}
         </motion.div>
 
         <motion.div

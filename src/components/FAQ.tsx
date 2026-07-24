@@ -32,7 +32,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [question, setQuestion] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState<string | null>(null);
@@ -40,12 +40,12 @@ export default function FAQ() {
   const toggle = (index: number) =>
     setOpenIndex(openIndex === index ? null : index);
 
-  const isValid = name.trim() && question.trim();
+  const isValid = email.trim() && question.trim();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isValid) return;
-    await supabase.from("questions").insert({ name: name.trim(), question: question.trim() });
+    await supabase.from("questions").insert({ email: email.trim(), question: question.trim() });
     setSubmitted(true);
   };
 
@@ -89,15 +89,15 @@ export default function FAQ() {
             <form onSubmit={handleSubmit} className="mt-8 space-y-4">
               <div
                 className={`rounded-xl bg-black/[0.03] px-4 py-3 transition-all duration-300 ${
-                  focused === "name" ? "bg-black/[0.05] ring-1 ring-black/10" : ""
+                  focused === "email" ? "bg-black/[0.05] ring-1 ring-black/10" : ""
                 }`}
               >
                 <input
-                  type="text"
-                  placeholder="Your name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  onFocus={() => setFocused("name")}
+                  type="email"
+                  placeholder="Your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onFocus={() => setFocused("email")}
                   onBlur={() => setFocused(null)}
                   autoComplete="off"
                   className="w-full bg-transparent text-[14px] text-black/80 placeholder:text-black/30 outline-none"
@@ -120,7 +120,7 @@ export default function FAQ() {
               </div>
               <button
                 type="submit"
-                disabled={name === "" || question === ""}
+                disabled={email === "" || question === ""}
                 suppressHydrationWarning
                 className={`premium-button inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm text-white transition-all duration-300 ${
                   isValid ? "bg-[#101010] hover:bg-[#1a1a1a]" : "bg-black/20 cursor-not-allowed"

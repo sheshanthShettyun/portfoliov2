@@ -37,11 +37,11 @@ export default function Nav() {
       initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7 }}
-      className="fixed inset-x-0 top-0 z-50 bg-[#f7f7f5]/90 backdrop-blur-xl"
+        className="fixed inset-x-0 top-0 z-50"
     >
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:px-10">
-        <div className="flex w-full items-center justify-between rounded-2xl bg-black/[0.03] px-6 py-3">
-          <a href="#" className="text-lg font-semibold tracking-[-0.05em] md:text-xl">
+          <div className="flex w-full items-center justify-between rounded-2xl bg-black/[0.03] backdrop-blur-xl px-6 py-3">
+            <a href="#" className="text-lg font-semibold tracking-[-0.05em] md:text-xl">
             SRIYAAN<span className="text-black/35">®</span>
           </a>
 

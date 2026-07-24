@@ -173,6 +173,13 @@ export default function FAQ() {
                   >
                     <p className="max-w-2xl pb-8 text-[15px] leading-relaxed text-black/55 md:text-base">
                       {faq.answer}
+                      {faq.question === "What does your tech stack look like?" && (
+                        <>{" "}
+                          <a href="#capabilities" className="inline-flex items-center gap-1 font-medium underline underline-offset-4 hover:text-black/70">
+                            Click to see stack →
+                          </a>
+                        </>
+                      )}
                     </p>
                   </motion.div>
                 )}

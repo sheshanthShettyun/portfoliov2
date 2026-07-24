@@ -45,7 +45,7 @@ export default function HeroCarousel() {
   const paused = activeCard !== null;
 
   return (
-    <section className="overflow-hidden bg-[#f7f7f5] py-16 md:py-20">
+    <section id="capabilities" className="overflow-hidden bg-[#f7f7f5] py-16 md:py-20">
       <div className="mb-8 text-center">
         <p className="text-[11px] uppercase tracking-[0.18em] text-black/30">Stack</p>
       </div>

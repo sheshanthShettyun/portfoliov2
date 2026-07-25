@@ -20,6 +20,7 @@ const allTechs: TechItem[] = [
   { name: "FastAPI", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg", bg: "#009688", fg: "#ffffff" },
   { name: "SQL", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg", bg: "#336791", fg: "#ffffff" },
   { name: "Docker", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", bg: "#2496ED", fg: "#ffffff" },
+  { name: "Node.js", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg", bg: "#339933", fg: "#ffffff" },
   { name: "PostgreSQL", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", bg: "#4169E1", fg: "#ffffff" },
   { name: "LangChain", logoUrl: undefined, bg: "#1C3C3C", fg: "#00D96B" },
   { name: "ChromaDB", logoUrl: undefined, bg: "#7B61FF", fg: "#ffffff" },
@@ -35,8 +36,8 @@ const allTechs: TechItem[] = [
 export const cardTechMap: Record<string, string[]> = {
   "Languages": ["Python", "JavaScript", "TypeScript", "SQL", "HTML"],
   "Frontend": ["Next.js", "Tailwind", "Framer"],
-  "Backend": ["FastAPI", "PostgreSQL", "Docker"],
-  "Other": ["LangChain", "ChromaDB", "Kubernetes", "Linux", "MLflow", "LangGraph", "CI/CD", "Git", "GitHub"],
+  "Backend": ["FastAPI", "PostgreSQL", "Docker", "Node.js"],
+  "Other": ["LangChain", "ChromaDB", "Linux", "CI/CD", "Git", "GitHub"],
 };
 
 type VacuumContextType = {

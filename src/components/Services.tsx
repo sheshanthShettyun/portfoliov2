@@ -19,6 +19,7 @@ const stack = [
   { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" },
   { name: "FastAPI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" },
   { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
+  { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" },
   { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" },
   { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg" },
   { name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" },
@@ -131,6 +132,28 @@ export default function Services() {
               );
             })}
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="group relative mt-5 inline-flex items-center"
+            >
+              <span className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/[0.08] bg-white px-4 py-2 text-[11px] font-medium uppercase tracking-[0.16em] text-black/40 transition-all duration-200 hover:border-black/15 hover:text-black/60">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#22c55e]/60" />
+                Learning
+              </span>
+              <div className="absolute left-0 top-full pt-2 opacity-0 transition-all duration-[250ms] ease-[0.22,0.61,0.36,1] group-hover:opacity-100 group-hover:translate-y-0 translate-y-1">
+                <div className="flex items-center gap-3 rounded-xl border border-black/[0.06] bg-white px-4 py-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.06)] whitespace-nowrap">
+                  {["Kubernetes", "MLflow", "LangGraph"].map((name) => (
+                    <span key={name} className="text-[13px] font-medium text-black/50 transition-colors hover:text-black/70">
+                      {name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

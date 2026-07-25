@@ -3,15 +3,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTechVacuum, cardTechMap } from "@/lib/TechVacuumContext";
 
 const services = [
-  { number: "01", title: "Web Dev", description: "Building end-to-end applications with modern runtimes and frameworks.", bgWord: "WEB" },
-  { number: "02", title: "AI & Data", description: "Engineering RAG pipelines, vector search, and LLM-powered applications.", bgWord: "AI" },
-  { number: "03", title: "DevOps", description: "Orchestrating deployments, automating pipelines, and shipping reliably.", bgWord: "OPS" },
+  { number: "01", title: "Languages", description: "Core programming languages I work with daily across the stack.", bgWord: "LANG" },
+  { number: "02", title: "Frontend", description: "Crafting performant, responsive interfaces with modern frameworks.", bgWord: "UI" },
+  { number: "03", title: "Backend", description: "Building scalable APIs, data pipelines, and robust architectures.", bgWord: "API" },
+  { number: "04", title: "Other", description: "MLOps, containerization, CI/CD — everything that keeps systems running.", bgWord: "OPS" },
 ];
 
 const stack = [
   { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
   { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" },
   { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
+  { name: "HTML", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" },
+  { name: "Tailwind", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
+  { name: "Framer", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/framermotion/framermotion-original.svg" },
   { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" },
   { name: "FastAPI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" },
   { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
@@ -19,6 +23,7 @@ const stack = [
   { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg" },
   { name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" },
   { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" },
+  { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" },
   { name: "SQL", svg: (<svg viewBox="0 0 128 128" className="h-3.5 w-3.5"><defs><radialGradient id="svc-grad" cx="9.36" cy="10.57" r="7.07" gradientTransform="matrix(73.03 0 0 37.19 29.8 56.54)"><stop offset="0" stopColor="#f2f2f2"/><stop offset=".58" stopColor="#eee"/><stop offset="1" stopColor="#e6e6e6"/></radialGradient><linearGradient id="svc-grad2" x1="2.59" y1="10.16" x2="15.41" y2="10.16" gradientTransform="scale(7.11)"><stop offset="0" stopColor="#005ba1"/><stop offset=".07" stopColor="#0060a9"/><stop offset=".36" stopColor="#0071c8"/><stop offset=".52" stopColor="#0078d4"/><stop offset=".64" stopColor="#0074cd"/><stop offset=".82" stopColor="#006abb"/><stop offset="1" stopColor="#005ba1"/></linearGradient></defs><path fill="url(#svc-grad2)" d="M64 36.55c-25.17 0-45.58-7.11-45.58-16.5v87.89c0 9.03 20.06 16.36 44.94 16.5H64c25.17 0 45.58-7.11 45.58-16.5v-87.89c0 9.17-20.41 16.5-45.58 16.5z"/><path fill="#e8e8e8" d="M109.58 20.06c0 9.17-20.41 16.5-45.58 16.5s-45.58-7.11-45.58-16.5c0-9.39 20.41-16.5 45.58-16.5s45.58 7.11 45.58 16.5"/><path fill="#50e6ff" d="M98.99 18.7c0 5.83-15.72 10.52-34.99 10.52s-34.99-4.69-34.99-10.52C29.01 12.87 44.73 8.25 64 8.25s34.99 4.69 34.99 10.45"/><path fill="#198ab3" d="M64 21.33a82.2 82.2 0 00-27.66 4.06A81.2 81.2 0 0064 29.23a79.3 79.3 0 0027.66-4.13A84.3 84.3 0 0064 21.33z"/><path fill="url(#svc-grad)" d="M91.73 81.07V56.89h-6.4v29.37h17.5v-5.19zM40.96 69.19a13.06 13.06 0 01-3.63-2.2 3.13 3.13 0 01-.85-2.28 2.42 2.42 0 011.07-2.13 4.85 4.85 0 012.99-.86 11.53 11.53 0 017.11 2.06v-6.11a18.24 18.24 0 00-7.11-1.14 11.67 11.67 0 00-7.75 2.41 7.68 7.68 0 00-2.99 6.33c0 3.63 2.27 6.47 7.11 8.6 1.57.67 3.05 1.53 4.41 2.56a2.98 2.98 0 011.07 2.28c0 .88-.43 1.7-1.14 2.2a5.79 5.79 0 01-3.2.79 11.8 11.8 0 01-7.75-2.99v6.61a15.41 15.41 0 007.61 1.71 13.13 13.13 0 008.39-2.35 7.68 7.68 0 002.35-6.47 7.46 7.46 0 00-1.78-4.98 17.23 17.23 0 00-5.9-4.05zm37.26 11.3a16.63 16.63 0 002.35-8.96A16.51 16.51 0 0078.22 64a12.87 12.87 0 00-4.98-5.33 14.23 14.23 0 00-7.11-1.85 15.02 15.02 0 00-7.68 1.92A13.22 13.22 0 0053.26 64a17.48 17.48 0 00-1.85 8.11 16.06 16.06 0 001.71 7.11 12.53 12.53 0 004.91 5.26 14.68 14.68 0 007.11 2.13l6.12 7.11h8.6l-8.75-7.82a12.74 12.74 0 007.12-5.41zm-7.12-1.78a6.67 6.67 0 01-5.4 2.49 6.54 6.54 0 01-5.41-2.56 10.84 10.84 0 01-2.06-7.11 10.9 10.9 0 012.06-7.11 7.1 7.1 0 015.55-2.63 6.18 6.18 0 015.34 2.63 11.53 11.53 0 011.92 7.11 10.35 10.35 0 01-2 7.18z"/></svg>) },
   { name: "LangChain", svg: (<svg viewBox="0 0 24 24" className="h-3.5 w-3.5"><path d="M6.099 5.918C2.736 5.918 0 8.646 0 12s2.736 6.082 6.099 6.082h11.802C21.264 18.082 24 15.354 24 12s-2.736-6.082-6.099-6.082zM5.977 7.851c.493.012 1.02.25 1.273.623.367.459.478 1.067.895 1.493.56.612 1.199 1.15 1.716 1.802.489.595.838 1.294 1.143 1.998.125.233.126.52.31.72.091.12.535.448.439.564.055.12.47.286.326.403-.194.04-.413.048-.562-.107-.055.126-.183.06-.282.043l-.025.074c-.328.022-.575-.313-.732-.565-.311-.168-.664-.27-.982-.446-.018.29.045.649-.231.835-.014.557.844.066.922.48a.237.237 0 01-.177.038c-.224.217-.48-.164-.739-.007-.346.174-.38.316-.81.352a.1.1 0 01.006-.081c.12-.14.13-.305.336-.365-.212-.033-.39.084-.569.176-.232.095-.23-.214-.588.017a.15.15 0 00.002-.087c.09-.11.21-.127.345-.12-.663-.369-.975.45-1.281.043-.092.024-.127.107-.185.165-.05-.055-.012-.121-.01-.186-.06-.028-.135-.041-.118-.136-.117-.04-.199.03-.286.095-.079-.06.053-.149.078-.213.07-.121.23-.025.31-.112.231-.131.553.081.816.045.203.026.454-.182.353-.39-.217-.277-.179-.639-.184-.97-.027-.192-.491-.438-.625-.646a4.73 4.73 0 00-.424-.618C5.016 12.41 5.163 11.252 4.575 10.416c-.266.147-.613.077-.842-.119a.45.45 0 00-.139.416c-.297-.296-.26-.856-.022-1.185a1.4 1.4 0 01.342-.332c.03-.021.04-.042.039-.075.117-.526.576-.739 1.07-.726m12.407.46c.558 0 1.08.216 1.474.608s.61.915.61 1.47c0 .556-.217 1.078-.61 1.47v.001l-.902.9a2.08 2.08 0 01-.86.516l-.016.005-.006.016a2.05 2.05 0 01-.474.731l-.902.9c-.393.392-.917.608-1.474.608s-1.08-.216-1.474-.608c-.813-.811-.813-2.13 0-2.94l.902-.9a2.056 2.056 0 01.858-.514l.017-.005.006-.016a2.07 2.07 0 01.475-.734l.902-.9c.393-.392.917-.608 1.474-.608zm0 .897a1.18 1.18 0 00-.839.346l-.902.9a1.181 1.181 0 00-.342.925l.005.057c.032.265.149.504.337.692.13.13.274.211.447.269l.014.158a.884.884 0 01-.26.63l-.056.055c-.301-.103-.552-.253-.78-.479a2.06 2.06 0 01-.576-1.097l-.01-.058-.046.037a1.1 1.1 0 00-.087.08l-.903.9c-.462.46-.462 1.211 0 1.672.231.23.535.346.84.346.304 0 .607-.116.838-.346l.902-.9c.462-.46.462-1.211 0-1.673a1.17 1.17 0 00-.437-.275 1 1 0 01-.014-.16c0-.26.102-.506.29-.693.302.103.57.27.796.495.301.3.5.68.576 1.097l.01.058.046-.037a1.1 1.1 0 00.089-.08l.902-.9c.462-.46.463-1.212 0-1.673a1.18 1.18 0 00-.84-.346zM8.42 14.468l-.001.001c-.08.308-.105.832-.506.847-.033.178.123.245.265.187.141-.064.208.051.256.166.218.032.54-.072.552-.33-.325-.186-.425-.542-.566-.87" fill="#000"/></svg>) },
   { name: "ChromaDB", svg: (<svg viewBox="0 0 24 24" className="h-3.5 w-3.5"><path fill="#ffde2d" d="M15.9166 19.52c4.3262 0 7.8333-3.3668 7.8333-7.52 0-4.1531-3.5071-7.52-7.8333-7.52s-7.8333 3.3668-7.8333 7.52c0 4.1532 3.507 7.52 7.8333 7.52z"/><path fill="#327eff" d="M8.0833 19.52c4.3263 0 7.8334-3.3668 7.8334-7.52 0-4.1531-3.5071-7.52-7.8333-7.52S.25 7.847 0.25 12c0 4.1532 3.5071 7.52 7.8333 7.52z"/><path fill="#ff6446" d="M15.9166 12c0 4.1532-3.5071 7.52-7.8333 7.52V12h7.8333zm-7.8333 0c0-4.1532 3.5071-7.52 7.8333-7.52V12H8.0833z"/></svg>) },
@@ -48,6 +53,7 @@ export default function Services() {
           </motion.div>
 
           <div className="md:col-span-7 md:col-start-6">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {services.map(({ number, title, description, bgWord }, index) => {
               const isOpen = activeCard === title;
               const techs = cardTechMap[title] || [];
@@ -60,17 +66,17 @@ export default function Services() {
                   transition={{ duration: 0.65, delay: index * 0.09, ease }}
                   layout
                   onClick={() => (isOpen ? closeCard() : openCard(title))}
-                  className="group relative cursor-pointer overflow-hidden rounded-3xl px-4 transition-all duration-[300ms] ease-[0.22,0.61,0.36,1] hover:translate-y-[-3px] hover:bg-white hover:shadow-[0_16px_40px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.04)] md:px-6"
+                  className="group relative cursor-pointer overflow-hidden rounded-3xl px-3 transition-all duration-[300ms] ease-[0.22,0.61,0.36,1] hover:translate-y-[-3px] hover:bg-white hover:shadow-[0_16px_40px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.04)] md:px-4"
                 >
                   <span className={`absolute left-0 top-0 h-[calc(100%-16px)] my-2 w-1 rounded-full bg-[#111] transition-all duration-[300ms] ease-[0.22,0.61,0.36,1] ${isOpen ? 'opacity-100' : 'opacity-0'} group-hover:opacity-100`} />
 
                   <div className={`${isOpen ? 'pb-0' : ''} relative z-10 border-t border-black/[0.06] transition-all duration-[220ms] ease-[0.22,0.61,0.36,1] group-hover:border-transparent`}>
-                    <div className="grid grid-cols-[1fr_auto] gap-4 py-9 md:gap-6 md:py-11">
+                    <div className="grid grid-cols-[1fr_auto] gap-4 py-6 md:gap-6 md:py-7">
                       <div>
-                        <h3 className="font-display text-[clamp(1.9rem,3vw,3.25rem)] leading-none tracking-[-.05em] text-[#111] transition-transform duration-[220ms] ease-[0.22,0.61,0.36,1] group-hover:translate-x-[6px]">{title}</h3>
+                        <h3 className="font-display text-[clamp(1.5rem,2.5vw,2.5rem)] leading-none tracking-[-.05em] text-[#111] transition-transform duration-[220ms] ease-[0.22,0.61,0.36,1] group-hover:translate-x-[6px]">{title}</h3>
                         <p className="mt-3 max-w-md text-[16px] leading-[1.7] text-[#666] transition-transform duration-[220ms] ease-[0.22,0.61,0.36,1] group-hover:translate-x-[8px]">{description}</p>
                       </div>
-                      <div className={`flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-2xl border transition-all duration-[300ms] ease-[0.22,0.61,0.36,1] ${isOpen ? 'bg-[#111] border-[#111] rotate-45 shadow-[0_8px_24px_rgba(0,0,0,0.15)] scale-110' : 'border-black/[0.10] bg-white'}`}>
+                      <div className={`flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-2xl border transition-all duration-[300ms] ease-[0.22,0.61,0.36,1] ${isOpen ? 'bg-[#111] border-[#111] rotate-45 shadow-[0_8px_24px_rgba(0,0,0,0.15)] scale-110' : 'border-black/[0.10] bg-white'}`}>
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={`transition-all duration-[300ms] ease-[0.22,0.61,0.36,1] ${isOpen ? 'text-white -rotate-45 scale-110' : 'text-[#111]'}`}>
                           {isOpen ? (
                             <path d="M18 6L6 18M6 6l12 12" />
@@ -124,6 +130,7 @@ export default function Services() {
                 </motion.div>
               );
             })}
+            </div>
           </div>
         </div>
       </div>

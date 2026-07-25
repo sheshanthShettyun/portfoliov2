@@ -13,6 +13,9 @@ const allTechs: TechItem[] = [
   { name: "Python", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", bg: "#3776AB", fg: "#FFD43B" },
   { name: "JavaScript", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg", bg: "#F7DF1E", fg: "#000000" },
   { name: "TypeScript", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg", bg: "#3178C6", fg: "#ffffff" },
+  { name: "HTML", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg", bg: "#E34F26", fg: "#ffffff" },
+  { name: "Tailwind", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg", bg: "#06B6D4", fg: "#ffffff" },
+  { name: "Framer", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/framermotion/framermotion-original.svg", bg: "#0055FF", fg: "#ffffff" },
   { name: "Next.js", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg", bg: "#000000", fg: "#ffffff" },
   { name: "FastAPI", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg", bg: "#009688", fg: "#ffffff" },
   { name: "SQL", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg", bg: "#336791", fg: "#ffffff" },
@@ -23,15 +26,17 @@ const allTechs: TechItem[] = [
   { name: "Kubernetes", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg", bg: "#326CE5", fg: "#ffffff" },
   { name: "Linux", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg", bg: "#222222", fg: "#FCC624" },
   { name: "Git", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg", bg: "#F05032", fg: "#ffffff" },
+  { name: "GitHub", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", bg: "#181717", fg: "#ffffff" },
   { name: "MLflow", logoUrl: undefined, bg: "#0194E2", fg: "#ffffff" },
   { name: "LangGraph", logoUrl: undefined, bg: "#1C3C3C", fg: "#00D96B" },
   { name: "CI/CD", logoUrl: undefined, bg: "#555555", fg: "#ffffff" },
 ];
 
 export const cardTechMap: Record<string, string[]> = {
-  "Web Dev": ["Python", "JavaScript", "TypeScript", "Next.js", "FastAPI"],
-  "AI & Data": ["SQL", "LangChain", "ChromaDB", "PostgreSQL", "MLflow", "LangGraph"],
-  "DevOps": ["Docker", "Git", "Linux", "Kubernetes", "CI/CD"],
+  "Languages": ["Python", "JavaScript", "TypeScript", "SQL", "HTML"],
+  "Frontend": ["Next.js", "Tailwind", "Framer"],
+  "Backend": ["FastAPI", "PostgreSQL", "Docker"],
+  "Other": ["LangChain", "ChromaDB", "Kubernetes", "Linux", "MLflow", "LangGraph", "CI/CD", "Git", "GitHub"],
 };
 
 type VacuumContextType = {

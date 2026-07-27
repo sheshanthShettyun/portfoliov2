@@ -10,14 +10,18 @@ export default function Hero() {
   return (
     <section id="home" className="bg-[#f7f7f5] pb-8 pt-[142px] text-[#101010] md:pb-12 md:pt-[178px]">
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="mb-7 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.16em]">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#22c55e] shadow-[0_0_8px_rgba(34,197,94,0.5)]" /> Available
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="mb-10 flex items-center gap-3 text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">
+          <span className="relative flex h-3 w-3">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping" />
+            <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
+          </span>
+          Available for projects
         </motion.div>
-        <motion.h1 initial={{ opacity: 0, y: 35 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.95, delay: 0.08, ease }} className="max-w-[1160px] font-display text-[clamp(3.35rem,8.6vw,8.5rem)] font-normal leading-[0.96]">
-          Digital products,<br />built to <em className="font-normal">reason.</em>
+        <motion.h1 initial={{ opacity: 0, y: 35 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.95, delay: 0.08, ease }} className="max-w-[1200px] font-display text-[clamp(3.5rem,9vw,9.5rem)] font-medium leading-[0.92] tracking-[-0.05em]">
+          Digital products,<br />built to <em className="italic font-light opacity-50">reason.</em>
         </motion.h1>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.26, ease }} className="mt-10 flex flex-col justify-between gap-8 border-t border-black/15 pt-5 md:flex-row md:items-end">
-          <p className="max-w-md text-[15px] leading-[1.5] text-black/60 md:text-[17px]">I&apos;m Sriyaan, bridging machine learning and production infrastructure. Building autonomous systems, RAG pipelines, and agentic workflows that reason through complexity.</p>
+          <p className="max-w-xl font-display text-[18px] font-medium leading-[1.65] text-black/70 md:text-[22px]">I&apos;m Sriyaan, bridging machine learning and production infrastructure. Building autonomous systems, RAG pipelines, and agentic workflows that reason through complexity.</p>
           <div className="flex gap-4">
             <a
               href="#projects"

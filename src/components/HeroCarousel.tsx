@@ -29,7 +29,7 @@ const stack = [
 
 function TechPill({ tech, layoutId }: { tech: (typeof stack)[0]; layoutId?: string }) {
   const el = (
-    <span className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-black/[0.05] bg-white px-4 py-2.5 text-[13px] font-medium text-[#101010] shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+    <span className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-xl border border-black/[0.06] bg-white px-4 py-2.5 text-[13px] font-medium text-[#101010] shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
       {tech.svg ? (
         <span className={`flex h-4 w-4 items-center justify-center ${tech.name === "LangGraph" ? "rounded-[3px] bg-[#1C3C3C]" : ""}`}>{tech.svg}</span>
       ) : (

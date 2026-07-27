@@ -69,8 +69,6 @@ export default function Services() {
                   onClick={() => (isOpen ? closeCard() : openCard(title))}
                   className="group relative cursor-pointer overflow-hidden rounded-3xl px-3 transition-all duration-[300ms] ease-[0.22,0.61,0.36,1] hover:translate-y-[-3px] hover:bg-white hover:shadow-[0_16px_40px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.04)] md:px-4"
                 >
-                  <span className={`absolute left-0 top-0 h-[calc(100%-16px)] my-2 w-1 rounded-full bg-[#111] transition-all duration-[300ms] ease-[0.22,0.61,0.36,1] ${isOpen ? 'opacity-100' : 'opacity-0'} group-hover:opacity-100`} />
-
                   <div className={`${isOpen ? 'pb-0' : ''} relative z-10 border-t border-black/[0.06] transition-all duration-[220ms] ease-[0.22,0.61,0.36,1] group-hover:border-transparent`}>
                     <div className="grid grid-cols-[1fr_auto] gap-4 py-6 md:gap-6 md:py-7">
                       <div>

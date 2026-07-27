@@ -50,7 +50,7 @@ export default function Projects() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.6, delay: index * 0.08, ease }}
               onClick={() => setSelected(project)}
-              className="group cursor-pointer overflow-hidden rounded-[20px] border border-white/[0.06]"
+              className="group cursor-pointer overflow-hidden rounded-[40px] border border-white/[0.05] bg-[#1a1a1a] shadow-[0_1px_3px_rgba(0,0,0,0.1),0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-[300ms] ease-[0.22,0.61,0.36,1] hover:-translate-y-1 hover:shadow-[0_2px_6px_rgba(0,0,0,0.12),0_12px_32px_rgba(0,0,0,0.12)]"
             >
               <div className="relative aspect-[16/9] overflow-hidden bg-white/[0.04]">
                 <div
@@ -63,7 +63,7 @@ export default function Projects() {
                 </span>
               </div>
 
-              <div className="p-5 md:p-6">
+              <div className="p-8 md:p-12">
                 <h3 className="font-display text-[clamp(1.5rem,2.2vw,2rem)] leading-[0.95] tracking-[-.04em]">
                   {project.title}
                 </h3>

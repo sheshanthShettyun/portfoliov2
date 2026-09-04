@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const btnEase = [0.22, 0.61, 0.36, 1] as const;
@@ -36,15 +36,16 @@ export default function Hero() {
               <span className="absolute inset-0 rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.22),0_8px_20px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.08)] opacity-0 transition-opacity duration-[250ms] group-hover:opacity-100" />
             </a>
             <a
-              href="#contact"
+              href="/resume.pdf"
+              download="SheshantShettyResume.pdf"
               className="group relative inline-flex h-[52px] items-center gap-3.5 rounded-full border border-black/[0.08] bg-white/75 px-7 text-[15px] font-medium tracking-[-0.02em] text-black/80 transition-all duration-[250ms] ease-[0.22,0.61,0.36,1] hover:translate-y-[-2px] hover:bg-white hover:border-black/15 active:scale-[0.98]"
               style={{
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
               }}
             >
-              Let&apos;s talk
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-[250ms] ease-[0.22,0.61,0.36,1] group-hover:translate-x-1"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+              Resume
+              <Download className="h-[16px] w-[16px] transition-transform duration-[250ms] ease-[0.22,0.61,0.36,1] group-hover:translate-y-0.5" strokeWidth={1.8} />
               <span className="absolute inset-0 rounded-full shadow-[0_10px_24px_rgba(0,0,0,0.06),0_4px_10px_rgba(0,0,0,0.04)] opacity-0 transition-opacity duration-[250ms] group-hover:opacity-100" />
             </a>
           </div>

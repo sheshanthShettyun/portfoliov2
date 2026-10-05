@@ -54,7 +54,7 @@ export default function Hero() {
               </div>
             </motion.div>
           </div>
-          <div className="relative min-h-[320px] overflow-hidden rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.08)] aspect-[4/3] lg:aspect-auto lg:min-h-[480px] lg:left-6 isolate">
+          <div className="relative min-h-[320px] overflow-hidden rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.08)] aspect-[4/3] lg:aspect-auto lg:min-h-[480px] lg:left-6 isolate [-webkit-mask-image:-webkit-radial-gradient(white,black)] [mask-image:radial-gradient(white,black)]">
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -71,7 +71,7 @@ export default function Hero() {
                   intensity={2.2}
                   ditherScale={0.6}
                   contrast={1.0}
-                  className="absolute inset-0"
+                  className="absolute inset-0 overflow-hidden rounded-[24px]"
                 />
               </div>
             </motion.div>

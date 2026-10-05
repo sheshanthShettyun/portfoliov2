@@ -38,11 +38,10 @@ export default function About() {
                 </h2>
 
                 <p className="mt-7 text-[15px] leading-[1.7] text-white/55 md:text-[16px]">
-                  A web designer and developer with a passion for crafting
-                  digital experiences that feel intuitive, beautiful, and
-                  human. With a background in design and front-end
-                  development, I bring a thoughtful balance of creativity
-                  and strategy to every project.
+                  I work across machine learning, LLMs, and backend
+                  infrastructure, building systems that can retrieve, reason,
+                  and act. My focus is turning experimental AI capabilities
+                  into reliable, usable software.
                 </p>
 
                 <div className="flex-1" />
@@ -84,12 +83,6 @@ export default function About() {
 
           <div className="flex flex-col gap-12">
             <div className="space-y-5">
-              <p className="text-[16px] leading-[1.7] text-white/55 md:text-[18px]">
-                I bridge the gap between complex machine learning models and
-                robust production environments. With a background in MLOps and
-                DevOps, I build autonomous systems that navigate tasks with
-                intent and reliability.
-              </p>
               <p className="text-[15px] leading-[1.65] text-white/35">
                 Currently exploring the frontier of agentic development —
                 RAG pipelines, LLM-powered applications, and automated

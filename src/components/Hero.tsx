@@ -54,24 +54,28 @@ export default function Hero() {
               </div>
             </motion.div>
           </div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.15, ease }}
-            className="light relative min-h-[320px] overflow-hidden rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.08)] aspect-[4/3] lg:aspect-auto lg:min-h-[480px] lg:left-6"
-          >
-            <AnimatedGrain
-              variant="monochrome"
-              colors={["#465262", "#818a93", "#f8fafc", "#ffffff"]}
-              ditherPattern="hash"
-              speed={0.8}
-              scale={3.5}
-              intensity={2.2}
-              ditherScale={0.6}
-              contrast={1.0}
+          <div className="relative min-h-[320px] overflow-hidden rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.08)] aspect-[4/3] lg:aspect-auto lg:min-h-[480px] lg:left-6 isolate">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.15, ease }}
               className="absolute inset-0"
-            />
-          </motion.div>
+            >
+              <div className="light relative h-full w-full overflow-hidden rounded-[24px]">
+                <AnimatedGrain
+                  variant="monochrome"
+                  colors={["#465262", "#818a93", "#f8fafc", "#ffffff"]}
+                  ditherPattern="hash"
+                  speed={0.8}
+                  scale={3.5}
+                  intensity={2.2}
+                  ditherScale={0.6}
+                  contrast={1.0}
+                  className="absolute inset-0"
+                />
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

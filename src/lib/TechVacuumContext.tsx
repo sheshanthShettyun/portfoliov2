@@ -31,9 +31,9 @@ const allTechs: TechItem[] = [
   { name: "Git", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg", bg: "#F05032", fg: "#ffffff" },
   { name: "GitHub", logoUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", bg: "#181717", fg: "#ffffff" },
   { name: "CI/CD", logoUrl: undefined, bg: "#555555", fg: "#ffffff" },
-  { name: "OpenCode", logoUrl: undefined, bg: "#111111", fg: "#ffffff" },
-  { name: "Claude Code", logoUrl: undefined, bg: "#D97757", fg: "#ffffff" },
-  { name: "Codex", logoUrl: undefined, bg: "#10A37F", fg: "#ffffff" },
+  { name: "OpenCode", logoUrl: "https://opencode.ai/favicon-96x96-v3.png", bg: "#111111", fg: "#ffffff" },
+  { name: "Claude Code", logoUrl: "https://img.icons8.com/?size=100&id=zQjzFjPpT2Ek&format=png&color=000000", bg: "#D97757", fg: "#ffffff" },
+  { name: "Codex", logoUrl: "https://cdn.jsdelivr.net/npm/simple-icons@13.11.0/icons/openai.svg", bg: "#10A37F", fg: "#ffffff" },
 ];
 
 export const cardTechMap: Record<string, string[]> = {

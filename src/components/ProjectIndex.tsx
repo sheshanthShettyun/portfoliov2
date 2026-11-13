@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMode } from "@/lib/ModeContext";
 import { projectIndexRows, type ProjectIndexRow } from "@/data/projectIndex";
+import DesignProjectsCTA from "./DesignProjectsCTA";
 
 export interface ProjectIndexProps {
   rows?: ProjectIndexRow[];
@@ -27,113 +28,143 @@ export default function ProjectIndex({ rows = projectIndexRows }: Readonly<Proje
     title: rows[0]?.title ?? "",
   });
   const [previewActive, setPreviewActive] = useState(false);
+  const [previewMounted, setPreviewMounted] = useState(false);
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+  // Cross-faded backdrop: the outgoing project stays painted while the new
+  // one fades over it, so a row change never hard-cuts the imagery.
+  const [layers, setLayers] = useState<[string, string]>([
+    rows[0]?.image ?? "",
+    rows[0]?.image ?? "",
+  ]);
+  const [front, setFront] = useState(0);
   const rowRefs = useRef<Map<number, HTMLDivElement>>(new Map());
   const ruleRef = useRef<HTMLElement>(null);
 
   const portalRef = useRef<HTMLDivElement>(null);
   const target = useRef({ x: 0, y: 0 });
+  const glide = useRef({ x: 0, y: 0 });
   const current = useRef({ x: 0, y: 0 });
+  const tiltRef = useRef(0);
   const visible = useRef(false);
+  const leaveTimer = useRef<number | null>(null);
+  const unmountTimer = useRef<number | null>(null);
   // Which side of the cursor the preview sits on. Flipping has hysteresis:
   // the arrow sits almost exactly on the flip boundary, so without this the
   // preview teleports 475px back and forth as the mouse straddles it.
   const sideRef = useRef<1 | -1>(1);
 
-  // Lerp physics loop for the floating preview (runs always, cheap)
+  // Two-stage damped follow for the floating preview (runs always, cheap).
   // NOTE: portal has NO CSS transition on transform — this loop owns it.
-  // transform-origin is top-left so tilt pivots near the cursor.
+  //  • glide chases the cursor almost immediately, absorbing the quantised
+  //    mousemove samples so the travelled path is a continuous curve.
+  //  • current trails glide with a longer time constant, giving the panel a
+  //    fluid body instead of sticking rigidly to the pointer.
+  //  • tilt is derived from lateral velocity and low-passed, so it eases
+  //    between angles instead of stepping on every event.
+  // All coefficients are exponential in real delta time, so the motion is
+  // identical at 60Hz and 120Hz — higher refresh rates simply add frames.
   useEffect(() => {
     let raf = 0;
-    const render = () => {
-      if (visible.current && portalRef.current) {
-        current.current.x += (target.current.x - current.current.x) * 0.2;
-        current.current.y += (target.current.y - current.current.y) * 0.2;
-        const tilt = Math.max(
-          -8,
-          Math.min(8, (target.current.x - current.current.x) * 0.04),
-        );
-        portalRef.current.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0px) scale(1) rotate(${tilt}deg)`;
-      }
+    let last = performance.now();
+    const render = (now: number) => {
       raf = requestAnimationFrame(render);
+      const p = portalRef.current;
+      if (!visible.current || !p) {
+        last = now;
+        return;
+      }
+      const dt = Math.min(64, Math.max(1, now - last)) / 1000;
+      last = now;
+
+      const aFast = 1 - Math.exp(-dt / 0.028);
+      glide.current.x += (target.current.x - glide.current.x) * aFast;
+      glide.current.y += (target.current.y - glide.current.y) * aFast;
+
+      const aSlow = 1 - Math.exp(-dt / 0.085);
+      current.current.x += (glide.current.x - current.current.x) * aSlow;
+      current.current.y += (glide.current.y - current.current.y) * aSlow;
+
+      const desiredTilt = Math.max(
+        -8,
+        Math.min(8, (glide.current.x - current.current.x) * 0.05),
+      );
+      tiltRef.current +=
+        (desiredTilt - tiltRef.current) * (1 - Math.exp(-dt / 0.1));
+
+      // Sub-pixel output: whole-pixel snapping is visible as 1px stepping
+      p.style.transform = `translate3d(${current.current.x.toFixed(2)}px, ${current.current.y.toFixed(2)}px, 0) scale(1) rotate(${tiltRef.current.toFixed(3)}deg)`;
     };
     raf = requestAnimationFrame(render);
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  // One smooth motion drives everything: as the wordmark travels from
-  // center to top (progress 0→1), each row renders in its own quarter.
-  // Driven by a persistent rAF loop writing directly to the row nodes —
-  // no scroll-event → setState → re-render → CSS-transition pipeline, so
-  // rows track the scroll 1:1 (~1 frame) instead of lagging ~240ms behind.
+  // Crossfade the backdrop when the previewed project changes: the outgoing
+  // image is already painted in the hidden layer, so the new one fades over
+  // it instead of hard-cutting when the cursor crosses a row boundary.
+  useEffect(() => {
+    if (layers[front] === preview.image) return;
+    const back = 1 - front;
+    setLayers((prev) => {
+      const next: [string, string] = [prev[0], prev[1]];
+      next[back] = preview.image;
+      return next;
+    });
+    setFront(back);
+  }, [preview.image, front, layers]);
+
+  useEffect(
+    () => () => {
+      if (leaveTimer.current) window.clearTimeout(leaveTimer.current);
+      if (unmountTimer.current) window.clearTimeout(unmountTimer.current);
+    },
+    [],
+  );
+
+  // The directory lives on a single screen — no scrolling. On entering
+  // projects mode the four rows cascade in once, each owning a quarter of the
+  // run, so the reveal still reads one-by-one but is time-driven, not scroll-
+  // driven. Returning home clears them.
   useEffect(() => {
     let raf = 0;
-    let lastY = -1;
-    let lastHidden: boolean | null = null;
-    const frame = () => {
-      const hidden = mode !== "projects";
-      if (hidden) {
-        if (lastHidden !== true) {
-          rowRefs.current.forEach((el) => {
-            el.style.opacity = "0";
-            el.style.transform = "translateY(22px)";
-          });
-          if (ruleRef.current) ruleRef.current.style.borderTopColor = ruleColor(0);
-          lastHidden = true;
+    const RUN_MS = 2100;
+    const paint = (p: number) => {
+      let tail = 0;
+      rows.forEach((_, i) => {
+        const q = Math.min(1, Math.max(0, (p - i / rows.length) * rows.length));
+        if (i === rows.length - 1) tail = q;
+        const el = rowRefs.current.get(i);
+        if (el) {
+          el.style.opacity = String(q);
+          el.style.transform = `translateY(${(1 - q) * 22}px)`;
         }
-      } else {
-        const y = window.scrollY;
-        if (lastHidden !== false || y !== lastY) {
-          const journey = Math.max(
-            1,
-            document.documentElement.scrollHeight - window.innerHeight,
-          );
-          const progress = Math.min(1, Math.max(0, y / journey));
-          let tail = 0;
-          rows.forEach((_, i) => {
-            const p = Math.min(
-              1,
-              Math.max(0, (progress - (i * 1) / rows.length) * rows.length),
-            );
-            if (i === rows.length - 1) tail = p;
-            const el = rowRefs.current.get(i);
-            if (el) {
-              el.style.opacity = String(p);
-              el.style.transform = `translateY(${(1 - p) * 22}px)`;
-            }
-          });
-          if (ruleRef.current) ruleRef.current.style.borderTopColor = ruleColor(tail);
-          lastHidden = false;
-          lastY = y;
-        }
-      }
-      raf = requestAnimationFrame(frame);
+      });
+      if (ruleRef.current) ruleRef.current.style.borderTopColor = ruleColor(tail);
+    };
+
+    if (mode !== "projects" || !revealed) {
+      paint(0);
+      return;
+    }
+    const started = performance.now();
+    const frame = (now: number) => {
+      const t = Math.min(1, (now - started) / RUN_MS);
+      // Smoothstep: the whole cascade eases in and settles, never linear
+      paint(t * t * (3 - 2 * t));
+      if (t < 1) raf = requestAnimationFrame(frame);
     };
     raf = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(raf);
-  }, [mode, rows]);
+  }, [mode, revealed, rows]);
 
-  const onRowEnter = useCallback(
-    (e: React.MouseEvent, row: ProjectIndexRow) => {
-      if (mode !== "projects" || !revealed) return;
-      visible.current = true;
-      setPreview({
-        image: row.image,
-        meta: row.meta,
-        title: row.title,
-      });
-      target.current = { x: e.clientX + 35, y: e.clientY - 140 };
-      current.current = { ...target.current };
-      sideRef.current = 1;
-      setPreviewActive(true);
-    },
-    [mode, revealed],
-  );
-
-  const onRowMove = useCallback((e: React.MouseEvent) => {
-    if (!visible.current) return;
+  // One placement rule for every pointer sample — enter and move compute the
+  // exact same target, so crossing from one row into the next can't introduce
+  // a jump (different offsets or a reset flip side were what made the panel
+  // "disconnect" mid-drag).
+  const placePreview = useCallback((clientX: number, clientY: number) => {
     const PREVIEW_W = 420;
+    const PREVIEW_H = 270;
     const GAP = 35;
-    const xRight = e.clientX + GAP;
+    const xRight = clientX + GAP;
     // Hysteresis band (~160px): flip left only when truly overflowing,
     // flip back right only once well clear of the edge.
     if (sideRef.current === 1 && xRight + PREVIEW_W > window.innerWidth) {
@@ -144,17 +175,76 @@ export default function ProjectIndex({ rows = projectIndexRows }: Readonly<Proje
     ) {
       sideRef.current = 1;
     }
-    const x =
-      sideRef.current === 1 ? xRight : e.clientX - (PREVIEW_W + 20);
-    let y = e.clientY - 130;
+    const x = sideRef.current === 1 ? xRight : clientX - (PREVIEW_W + 20);
+    let y = clientY - 130;
     if (y < 20) y = 20;
-    if (y + 270 > window.innerHeight) y = window.innerHeight - 280;
-    target.current = { x, y };
+    if (y + PREVIEW_H > window.innerHeight) y = window.innerHeight - 280;
+    return { x, y };
   }, []);
 
+  const onRowEnter = useCallback(
+    (e: React.MouseEvent, row: ProjectIndexRow, i: number) => {
+      if (mode !== "projects" || !revealed) return;
+      if (leaveTimer.current) {
+        window.clearTimeout(leaveTimer.current);
+        leaveTimer.current = null;
+      }
+      if (unmountTimer.current) {
+        window.clearTimeout(unmountTimer.current);
+        unmountTimer.current = null;
+      }
+      // First appearance snaps under the cursor; every later row change keeps
+      // the existing position and glides, so the drag reads as one motion.
+      const firstAppearance = !visible.current;
+      if (firstAppearance) sideRef.current = 1;
+      visible.current = true;
+      setActiveIdx(i);
+      setPreview({
+        image: row.image,
+        meta: row.meta,
+        title: row.title,
+      });
+      const next = placePreview(e.clientX, e.clientY);
+      target.current = next;
+      if (firstAppearance) {
+        glide.current = { ...next };
+        current.current = { ...next };
+        tiltRef.current = 0;
+      }
+      // Mount one frame before activating so the opacity transition has a
+      // from-style to animate out of (display:none → block can't fade).
+      setPreviewMounted(true);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setPreviewActive(true));
+      });
+    },
+    [mode, revealed, placePreview],
+  );
+
+  const onRowMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!visible.current) return;
+      target.current = placePreview(e.clientX, e.clientY);
+    },
+    [placePreview],
+  );
+
   const onRowLeave = useCallback(() => {
-    visible.current = false;
-    setPreviewActive(false);
+    // Rows are contiguous; leaving one means entering the next a millisecond
+    // later. A short grace period keeps the panel from blinking between rows
+    // — it simply glides on to the new row's content.
+    if (leaveTimer.current) window.clearTimeout(leaveTimer.current);
+    leaveTimer.current = window.setTimeout(() => {
+      visible.current = false;
+      setPreviewActive(false);
+      setActiveIdx(null);
+      leaveTimer.current = null;
+      // Keep the node displayed until the fade finishes, then unmount it
+      unmountTimer.current = window.setTimeout(() => {
+        setPreviewMounted(false);
+        unmountTimer.current = null;
+      }, 380);
+    }, 90);
   }, []);
 
   return (
@@ -163,16 +253,24 @@ export default function ProjectIndex({ rows = projectIndexRows }: Readonly<Proje
       <div
         id="floating-preview-portal"
         ref={portalRef}
-        className={previewActive ? "active" : ""}
+        className={`${previewMounted ? "mounted " : ""}${previewActive ? "active" : ""}`.trim()}
         aria-hidden
       >
         <div
-          className="relative flex h-full w-full flex-col justify-end overflow-hidden bg-cover bg-center p-6"
+          className="relative flex h-full w-full flex-col justify-end overflow-hidden p-6"
           id="preview-inner-canvas"
-          style={{
-            backgroundImage: `linear-gradient(180deg, rgba(11,11,11,0.2) 0%, rgba(11,11,11,0.85) 100%), url('${preview.image}')`,
-          }}
         >
+          {layers.map((src, i) => (
+            <div
+              key={i}
+              aria-hidden
+              className="preview-backdrop absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `linear-gradient(180deg, rgba(11,11,11,0.2) 0%, rgba(11,11,11,0.85) 100%), url('${src}')`,
+                opacity: front === i ? 1 : 0,
+              }}
+            />
+          ))}
           <div className="z-10 rounded-xl border border-white/10 bg-black/80 p-3 backdrop-blur-md">
             <div
               className="mb-1 text-[20px] font-normal leading-none tracking-[-0.02em] text-[#F2EDE4]"
@@ -212,23 +310,24 @@ export default function ProjectIndex({ rows = projectIndexRows }: Readonly<Proje
               ref={(el) => {
                 if (el) rowRefs.current.set(i, el);
               }}
-              className="project-row group flex cursor-pointer flex-col justify-between gap-4 px-3 py-7 opacity-0 sm:px-6 sm:py-9 md:flex-row md:items-center"
+              className={`project-row group flex cursor-pointer flex-col justify-between gap-4 px-3 py-7 opacity-0 sm:px-6 sm:py-9 md:flex-row md:items-center${
+                activeIdx === i
+                  ? " row-active"
+                  : activeIdx !== null
+                    ? " row-dim"
+                    : ""
+              }`}
               style={{
                 "--row-color": row.color,
               } as React.CSSProperties}
-              onMouseEnter={(e) => onRowEnter(e, row)}
+              onMouseEnter={(e) => onRowEnter(e, row, i)}
               onMouseMove={onRowMove}
               onMouseLeave={onRowLeave}
             >
               <div className="flex items-baseline">
-                <div className="row-title-mask font-display text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
-                  <div className="row-title-track">
-                    <h3 className="row-title text-[#ECEBE4]">{row.title}</h3>
-                    <h3 aria-hidden="true" className="row-title row-title-ghost text-[#ECEBE4]">
-                      {row.title}
-                    </h3>
-                  </div>
-                </div>
+                <h3 className="row-title font-display text-[1.5rem] font-bold tracking-tight text-[#ECEBE4] sm:text-[1.7rem] md:text-[1.9rem]">
+                  {row.title}
+                </h3>
               </div>
               <div className="flex items-center justify-between gap-6 sm:gap-10 md:justify-end">
                 <div className="row-tags flex items-center gap-2 text-xs text-[#85817B]">
@@ -261,6 +360,8 @@ export default function ProjectIndex({ rows = projectIndexRows }: Readonly<Proje
           ))}
         </div>
       </section>
+
+      <DesignProjectsCTA />
     </div>
   );
 }

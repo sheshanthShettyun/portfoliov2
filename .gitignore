@@ -33,6 +33,7 @@ yarn-error.log*
 
 .statekeeper/
 screenshots/
+.superpowers/
 
 # local experiments & heavy data (not part of the portfolio app)
 heartmate/

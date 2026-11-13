@@ -303,11 +303,6 @@ function FrameChrome({ children }: Readonly<FrameProps>) {
   // Project directory: home chrome melts away, exactly like Stitch
   const chromeGone = onHome && mode === "projects";
 
-  const hideProjectsList = useCallback(() => {
-    setRevealed(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [setRevealed]);
-
   // Guards double-clicks while the char-dissolve is running.
   // Wordmark (Hero) transition is untouched — this only gates header fade.
   const transitioningRef = useRef(false);
@@ -358,12 +353,11 @@ function FrameChrome({ children }: Readonly<FrameProps>) {
           }, 180);
           return;
         }
-        if (revealed) hideProjectsList();
+        if (revealed) return;
         return;
       }
     },
     [
-      hideProjectsList,
       mode,
       onHome,
       revealed,

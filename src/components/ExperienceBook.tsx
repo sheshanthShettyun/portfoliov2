@@ -224,6 +224,13 @@ export default function ExperienceBook() {
   const liftedItem = entries[k];
   const landingItem = entries[k + 1];
 
+  /* How much of the page block is still to the right of the reader: 1 on the
+     first spread, 0 once the last leaf has fallen. Driven off the in-flight
+     target so the fore-edge thins as the sheet turns, not after it lands. */
+  const shownSpread =
+    turnDir === "next" ? spread + 1 : turnDir === "prev" ? spread - 1 : spread;
+  const remain = total > 1 ? (total - 1 - shownSpread) / (total - 1) : 0;
+
   return (
     <>
       <button
@@ -273,7 +280,10 @@ export default function ExperienceBook() {
                   }}
                   transition={{ duration: d(0.62), ease }}
                 >
-                  <div className="book-stage">
+                  <div
+                    className="book-stage"
+                    style={{ "--book-remain": remain } as React.CSSProperties}
+                  >
                     <div className="book-floor" aria-hidden="true" />
 
                     <motion.div

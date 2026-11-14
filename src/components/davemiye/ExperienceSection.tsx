@@ -1,2 +1,23 @@
-const stack = [["Languages", "Python · Rust · Java"], ["AI engineering", "RAG · LangChain · ChromaDB · LangGraph"], ["Backend & data", "FastAPI · PostgreSQL · REST APIs · Data Pipelines"], ["Infrastructure", "Docker · Kubernetes · Linux · CI/CD"]];
-export default function ExperienceSection() { return <section id="experience" className="dm-section"><div className="dm-narrow-column"><h2>About</h2><div className="dm-about-intro"><p>Two years building systems that retrieve, reason, and act.</p><div className="dm-about-stats"><strong>2+</strong><span>Years building</span><strong>6+</strong><span>Projects built</span></div></div><ol className="dm-jobs">{stack.map(([area, tools]) => <li className="dm-job" key={area}><strong className="dm-job-company">{area}</strong><span className="dm-job-role">{tools}</span><time className="dm-job-time">Stack</time></li>)}</ol></div></section>; }
+const experience = [
+  ["Edufyi Tech Solutions", "DevOps Trainee", "Sep 2026 – Present"],
+  ["Teachnook", "Data Science Intern Training", "2024"],
+] as const;
+
+export default function ExperienceSection() {
+  return (
+    <section id="experience" className="dm-section" aria-labelledby="experience-title">
+      <div className="dm-narrow-column">
+        <h2 id="experience-title">Experience</h2>
+        <ol className="dm-jobs">
+          {experience.map(([company, role, time]) => (
+            <li className="dm-job" key={company}>
+              <span className="dm-job-company">{company}</span>
+              <span className="dm-job-role">{role}</span>
+              <time className="dm-job-time">{time}</time>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}

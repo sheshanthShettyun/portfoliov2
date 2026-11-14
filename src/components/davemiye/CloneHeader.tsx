@@ -30,7 +30,7 @@ export default function CloneHeader() {
       <header className="dm-header" data-dark={dark} data-hidden={hidden || undefined}>
         <a className="dm-signature dm-wordmark" href="#intro" aria-label="SRIYAAN — home">SRIYAAN</a>
         <nav className="dm-nav" aria-label="Primary">
-          <a href="#work">Work</a><a href="#intro">About</a>
+          <a href="#work">Work</a><a href="#experience">Experience</a>
         </nav>
         <div className="dm-header-links">
           <a href="/resume.pdf">Résumé</a>
@@ -40,7 +40,7 @@ export default function CloneHeader() {
         </div>
         <button className="dm-menu-button" type="button" onClick={() => setMenu((value) => !value)} aria-expanded={menu} aria-controls="dm-mobile-menu" aria-label={menu ? "Close menu" : "Open menu"}>Menu</button>
       </header>
-      <nav id="dm-mobile-menu" className="dm-mobile-menu" data-open={menu || undefined} aria-hidden={!menu} aria-label="Mobile"><a tabIndex={menu ? 0 : -1} href="#work" onClick={() => setMenu(false)}>Work</a><a tabIndex={menu ? 0 : -1} href="#intro" onClick={() => setMenu(false)}>About</a><a tabIndex={menu ? 0 : -1} href="#contact" onClick={() => setMenu(false)}>Contact</a></nav>
+      <nav id="dm-mobile-menu" className="dm-mobile-menu" data-open={menu || undefined} aria-hidden={!menu} aria-label="Mobile"><a tabIndex={menu ? 0 : -1} href="#work" onClick={() => setMenu(false)}>Work</a><a tabIndex={menu ? 0 : -1} href="#experience" onClick={() => setMenu(false)}>Experience</a><a tabIndex={menu ? 0 : -1} href="#contact" onClick={() => setMenu(false)}>Contact</a></nav>
     </>
   );
 }

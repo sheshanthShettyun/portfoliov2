@@ -33,7 +33,7 @@ html{scrollbar-width:auto}html::-webkit-scrollbar{display:block;width:auto}
 .dm-wordmark{width:auto;height:auto;font-family:Caveat,cursive;font-size:28px;font-weight:500;letter-spacing:-.035em;line-height:1;white-space:nowrap;text-rendering:geometricPrecision}.dm-wordmark:hover{opacity:.72}.dm-header-time{display:flex;align-items:center;gap:8px;margin:0;color:var(--muted);white-space:nowrap}.dm-header-time time{color:var(--ink);font-variant-numeric:tabular-nums}.theme-toggle{display:inline-flex;align-items:center;gap:.35rem}.theme-toggle svg{fill:none;stroke:currentColor;stroke-width:1.7px;stroke-linecap:round;stroke-linejoin:round;width:.95rem;height:.95rem;transition:rotate .5s cubic-bezier(.3,1.4,.5,1)}.theme-toggle:hover svg{rotate:-20deg}
 @media (max-width:1100px){.dm-header-time{display:none}}
 .dm-hello .dm-greeting{display:flex;align-items:baseline;gap:10px}
-.dm-character{position:absolute;top:-178px;left:-52px;width:210px;aspect-ratio:1457 / 1079;pointer-events:auto}.dm-character object{display:block;width:100%;height:100%;border:0;pointer-events:none}.dm-character-art--light{display:block}:root:not([data-theme="dark"]) .dm-character-art--dark{display:none!important}:root[data-theme="dark"] .dm-character-art--light{display:none!important}
+.dm-character{position:absolute;top:-178px;left:-52px;width:210px;aspect-ratio:1457 / 1079;pointer-events:auto}.dm-character-art{display:block;width:100%;height:100%;border:0;pointer-events:none;color:var(--ink)}.dm-character-art--light{display:block}:root:not([data-theme="dark"]) .dm-character-art--dark{display:none!important}:root[data-theme="dark"] .dm-character-art--light{display:none!important}
 @media (max-width:768px){.dm-character{top:-148px;left:-12px;width:150px}}
 .dm-inline-icon{display:inline-flex;align-items:center;vertical-align:-.18em;margin:0 .18em;color:var(--ink)}.dm-inline-icon svg{width:1.05em;height:1.05em;stroke:currentColor;stroke-width:1.5}.dm-ai-mark{white-space:nowrap}
 .dm-paper-note{display:none!important}
@@ -53,3 +53,18 @@ html{scrollbar-width:auto}html::-webkit-scrollbar{display:block;width:auto}
 
 /* Keep the supplied character artwork in its own, theme-neutral compositing layer. */
 .dm-character{isolation:isolate}
+
+/* Match the reference hero's two-group header and compact top illustration. */
+.dm-header-left{display:flex;align-items:center;gap:32px}
+.dm-wordmark{width:135px}
+.dm-intro-copy{margin-top:162px}
+.dm-intro{min-height:877px}
+.dm-hello{height:32px}
+.dm-intro p{max-width:608px}
+.dm-intro-actions{flex-direction:column;align-items:flex-start;gap:12px}
+.dm-character{top:-158px;left:-27px;width:155px;aspect-ratio:1;transform:none}
+@media (max-width:768px){.dm-header-left{gap:20px}.dm-wordmark{width:auto}.dm-intro-copy{margin-top:120px}.dm-intro{min-height:900px}.dm-intro p{max-width:min(500px,100%)}.dm-intro-actions{gap:20px}.dm-character{top:-168px;left:-12px;width:150px;transform:none}}
+
+/* Supplied Mediterranean artwork, blended into the footer as a clean static image. */
+.dm-footer-image{width:min(1280px,100%);margin:clamp(5rem,9vw,8rem) auto 0;line-height:0;background:var(--paper);overflow:hidden}
+.dm-footer-image img{display:block;width:100%;height:auto}

@@ -28,11 +28,14 @@ export default function CloneHeader() {
   return (
     <>
       <header className="dm-header" data-dark={dark} data-hidden={hidden || undefined}>
-        <a className="dm-signature dm-wordmark" href="#intro" aria-label="SRIYAAN — home">SRIYAAN</a>
-        <nav className="dm-nav" aria-label="Primary">
-          <a href="#work">Work</a><a href="#experience">Experience</a>
-        </nav>
+        <div className="dm-header-left">
+          <a className="dm-signature dm-wordmark" href="#intro" aria-label="SRIYAAN — home">SRIYAAN</a>
+          <nav className="dm-nav" aria-label="Primary">
+            <a href="#work">Work</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+          </nav>
+        </div>
         <div className="dm-header-links">
+          <a className="dm-header-contact" href="#contact">Let’s talk</a>
           <a href="/resume.pdf">Résumé</a>
           <button type="button" data-sound-toggle onClick={toggleSound} aria-pressed={sound} aria-label={sound ? "Sound off" : "Sound on"}>Sound {sound ? "off" : "on"}</button>
           <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.6A7.7 7.7 0 0 1 9.4 4.5a7.9 7.9 0 1 0 10.1 10.1Z" /></svg><span>{dark ? "Light" : "Dark"}</span></button>

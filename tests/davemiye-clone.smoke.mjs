@@ -12,11 +12,14 @@ const characterAsset = await readFile(new URL("../public/images/sriyaan-characte
 const originalCharacterAsset = await readFile("/home/sriyaan/Downloads/file.svg", "utf8");
 const darkTransparentCharacterAsset = await readFile(new URL("../public/images/sriyaan-character-dark.svg", import.meta.url), "utf8");
 const lightCharacterAsset = await readFile(new URL("../public/images/sriyaan-character-light.svg", import.meta.url), "utf8");
+const suppliedDarkCharacterAsset = await readFile("/home/sriyaan/Downloads/sriyaan-dark.svg", "utf8");
+const suppliedLightCharacterAsset = await readFile("/home/sriyaan/Downloads/sriyaan-light.svg", "utf8");
 const projects = await readFile(new URL("../src/components/davemiye/ProjectRail.tsx", import.meta.url), "utf8");
 const footer = await readFile(new URL("../src/components/davemiye/ContactFooter.tsx", import.meta.url), "utf8");
 const notes = await readFile(new URL("../src/components/davemiye/TestimonialsSection.tsx", import.meta.url), "utf8");
 const caseStudy = await readFile(new URL("../src/app/work/[slug]/page.tsx", import.meta.url), "utf8");
 const styles = await readFile(new URL("../src/app/globals.css", import.meta.url), "utf8");
+const extractPathData = (asset) => [...asset.matchAll(/<path\b[^>]*\bd="([^"]*)"/g)].map((match) => match[1]);
 
 assert.match(page, /CloneHeader/);
 assert.match(page, /<ProjectRail \/>/);
@@ -91,6 +94,8 @@ assert.match(styles, /::view-transition-new\(root\)\{[^}]*will-change:clip-path/
 assert.match(styles, /html\.theme-switching \*,html\.theme-switching :before,html\.theme-switching :after\{transition:none!important\}/);
 assert.match(header, /data-hidden/);
 assert.match(header, /dm-wordmark/);
+assert.match(header, /dm-header-left/);
+assert.match(header, /href="#contact">Contact/);
 assert.doesNotMatch(header, /Book a call/);
 assert.doesNotMatch(header, /Playground/);
 assert.match(header, /href="#work">Work/);
@@ -131,11 +136,22 @@ assert.match(styles, /#experience\{[^}]*min-height:0/);
 assert.match(styles, /#contact\{[^}]*min-height:0/);
 assert.match(styles, /\.dm-hello \.dm-greeting\{[^}]*align-items:baseline/);
 assert.match(styles, /\.dm-intro p\{max-width:min\(500px,100%\)/);
-assert.match(character, /sriyaan-character-dark\.svg/);
-assert.match(character, /sriyaan-character-light\.svg/);
-assert.match(character, /dm-character-art--light/);
+assert.doesNotMatch(styles, /\.dm-intro p\{max-width:none\}/);
+assert.match(styles, /\.dm-header-left\{display:flex;align-items:center;gap:32px\}/);
+assert.match(styles, /\.dm-wordmark\{width:135px/);
+assert.match(styles, /\.dm-intro-copy\{margin-top:162px\}/);
+assert.match(styles, /\.dm-intro\{min-height:877px/);
+assert.match(styles, /\.dm-hello\{height:32px/);
+assert.match(styles, /\.dm-intro p\{max-width:608px/);
+assert.match(styles, /\.dm-intro-actions\{flex-direction:column;align-items:flex-start;gap:12px/);
+assert.match(styles, /\.dm-character\{top:-158px;left:-27px;width:155px;aspect-ratio:1;transform:none/);
+assert.match(styles, /\.dm-character\{top:-168px;left:-12px;width:150px;transform:none/);
+assert.match(character, /variant="dark"/);
+assert.match(character, /variant="light"/);
+assert.match(character, /dm-character-art--\$\{variant\}/);
 assert.match(styles, /data-theme="dark"\].*dm-character-art--light/);
-assert.match(character, /contentDocument/);
+assert.match(character, /<svg/);
+assert.doesNotMatch(character, /<object\b/);
 assert.match(character, /data-gaze-eye/);
 assert.match(character, /resetEyes/);
 assert.match(character, /pointerout/);
@@ -145,39 +161,18 @@ assert.doesNotMatch(characterAsset, /data-gaze-eye=/);
 assert.doesNotMatch(characterAsset, /class="character-palette"/);
 assert.match(characterAsset, /fill="#141212"/);
 assert.equal(characterAsset, originalCharacterAsset);
-assert.match(darkTransparentCharacterAsset, /fill="#141212"/);
+assert.deepEqual(extractPathData(darkTransparentCharacterAsset), extractPathData(suppliedDarkCharacterAsset));
+assert.deepEqual(extractPathData(lightCharacterAsset), extractPathData(suppliedLightCharacterAsset));
+assert.doesNotMatch(darkTransparentCharacterAsset, /<rect\b/);
+assert.doesNotMatch(lightCharacterAsset, /<rect\b/);
+assert.match(darkTransparentCharacterAsset, /fill="currentColor"/);
+assert.match(lightCharacterAsset, /fill="currentColor"/);
+assert.match(darkTransparentCharacterAsset, /viewBox="0 0 1254 1254"/);
+assert.match(lightCharacterAsset, /viewBox="0 0 1254 1254"/);
 assert.doesNotMatch(darkTransparentCharacterAsset, /M905\.000000,1080\.000000/);
-assert.match(lightCharacterAsset, /<path fill="#f1eee9"[^>]*d="\s*M506\.613037,290\.697662/);
-assert.match(lightCharacterAsset, /<path fill="#f1eee9"[^>]*d="\s*M782\.005981,614\.001831/);
-assert.match(lightCharacterAsset, /<path fill="#f1eee9"[^>]*d="\s*M596\.788574,756\.314392/);
-for (const start of [
-  "M526.504333,499.119324",
-  "M578.107788,582.432190",
-  "M885.243530,494.178467",
-  "M728.143311,513.752441",
-  "M764.881653,587.646729",
-  "M749.034668,615.119568",
-  "M904.800232,524.914856",
-  "M715.094360,624.961731",
-  "M703.556763,571.843384",
-  "M684.290833,605.891174",
-  "M694.021851,587.853271",
-  "M711.003235,539.891418",
-  "M710.880249,615.798645",
-  "M709.310425,589.036621",
-]) {
-  assert.match(lightCharacterAsset, new RegExp(`<path fill="#f1eee9"[^>]*d="\\s*${start.replaceAll(".", "\\.")}`));
-}
-assert.doesNotMatch(lightCharacterAsset, /M905\.000000,1080\.000000/);
 assert.match(styles, /\.dm-character\{[^}]*isolation:isolate/);
 assert.doesNotMatch(styles, /\.dm-character-art--light\{[^}]*filter:/);
 assert.doesNotMatch(styles, /\.dm-character-art--light\{[^}]*background:/);
-for (const color of ["#413C38", "#47413D", "#504A45", "#37332F", "#292624", "#84786F"]) {
-  assert.doesNotMatch(lightCharacterAsset, new RegExp(`fill="${color}"`));
-}
-assert.match(lightCharacterAsset, /fill="#1f1d1b"/);
-assert.match(styles, /\.dm-character\{[^}]*width:210px/);
-assert.match(styles, /\.dm-character\{[^}]*left:-52px/);
 assert.doesNotMatch(styles, /cdn\.sanity\.io/);
 assert.match(styles, /\.dm-photo-stack\{[^}]*pointer-events:auto/);
 console.log("davemiye clone smoke checks passed");

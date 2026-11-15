@@ -1,15 +1,38 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { sriyaanAvatarPaths } from "./sriyaanAvatarPaths";
+
+type AvatarVariant = keyof typeof sriyaanAvatarPaths;
+
+function SriyaanAvatar({ variant, setRef }: { variant: AvatarVariant; setRef: (svg: SVGSVGElement | null) => void }) {
+  const paths = sriyaanAvatarPaths[variant];
+
+  return (
+    <svg
+      className={`dm-character-art dm-character-art--${variant}`}
+      ref={setRef}
+      viewBox="0 0 1254 1254"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Sriyaan character"
+      focusable="false"
+    >
+      <path className="dm-avatar-linework" fill="currentColor" fillRule="evenodd" d={paths.linework} />
+      <path className="dm-avatar-accent" fill="#ed202a" fillRule="evenodd" d={paths.glasses} />
+      <path className="dm-avatar-accent" fill="#315cff" fillRule="evenodd" d={paths.accents} />
+    </svg>
+  );
+}
 
 export default function SriyaanCharacter() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const characterRefs = useRef<Array<HTMLObjectElement | null>>([]);
+  const characterRefs = useRef<Array<SVGSVGElement | null>>([]);
   const frameRef = useRef(0);
 
-  const eachSvg = (callback: (svg: Document) => void) => {
+  const eachSvg = (callback: (svg: SVGSVGElement) => void) => {
     characterRefs.current.forEach((character) => {
-      if (character?.contentDocument) callback(character.contentDocument);
+      if (character) callback(character);
     });
   };
 
@@ -56,8 +79,8 @@ export default function SriyaanCharacter() {
 
   return (
     <div ref={containerRef} className="dm-character" aria-hidden="true" onPointerLeave={resetEyes}>
-      <object className="dm-character-art dm-character-art--dark" ref={(element) => { characterRefs.current[0] = element; }} data="/images/sriyaan-character-dark.svg" type="image/svg+xml" aria-label="Sriyaan character" />
-      <object className="dm-character-art dm-character-art--light" ref={(element) => { characterRefs.current[1] = element; }} data="/images/sriyaan-character-light.svg" type="image/svg+xml" aria-label="Sriyaan character" />
+      <SriyaanAvatar variant="dark" setRef={(element) => { characterRefs.current[0] = element; }} />
+      <SriyaanAvatar variant="light" setRef={(element) => { characterRefs.current[1] = element; }} />
     </div>
   );
 }

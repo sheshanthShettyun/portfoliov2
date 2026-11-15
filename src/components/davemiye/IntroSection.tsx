@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { BrainCircuit, Gamepad2, Tv } from "lucide-react";
 import SriyaanCharacter from "./SriyaanCharacter";
+import HeroLandscape from "./HeroLandscape";
 
 const greetings = [
   ["Hello,", "English"],
@@ -27,6 +28,7 @@ export default function IntroSection() {
 
   return (
     <section id="intro" className="dm-intro" aria-labelledby="intro-title">
+      <HeroLandscape />
       <div className="dm-intro-copy">
         <div className="dm-hello"><SriyaanCharacter /><div className="dm-greeting" aria-live="polite"><span key={language} className="hello-word">{greeting}</span><small key={`${language}-label`} className="hello-language">{language}</small></div></div>
         <h1 id="intro-title" className="dm-visually-hidden">Sriyaan, AI systems engineer</h1>

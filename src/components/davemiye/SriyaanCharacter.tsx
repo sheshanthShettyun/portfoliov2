@@ -7,21 +7,50 @@ type AvatarVariant = keyof typeof sriyaanAvatarPaths;
 
 function SriyaanAvatar({ variant, setRef }: { variant: AvatarVariant; setRef: (svg: SVGSVGElement | null) => void }) {
   const paths = sriyaanAvatarPaths[variant];
+  const silhouetteFilterId = `dm-character-silhouette-filter-${variant}`;
 
   return (
-    <svg
-      className={`dm-character-art dm-character-art--${variant}`}
-      ref={setRef}
-      viewBox="0 0 1254 1254"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label="Sriyaan character"
-      focusable="false"
-    >
-      <path className="dm-avatar-linework" fill="currentColor" fillRule="evenodd" d={paths.linework} />
-      <path className="dm-avatar-accent" fill="#ed202a" fillRule="evenodd" d={paths.glasses} />
-      <path className="dm-avatar-accent" fill="#315cff" fillRule="evenodd" d={paths.accents} />
-    </svg>
+    <>
+      <svg
+        className={`dm-character-silhouette dm-character-silhouette--${variant}`}
+        viewBox="0 0 1254 1254"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <filter
+            id={silhouetteFilterId}
+            x="-20%"
+            y="-20%"
+            width="140%"
+            height="140%"
+            colorInterpolationFilters="sRGB"
+          >
+            <feMorphology in="SourceGraphic" operator="dilate" radius="24" result="expanded" />
+            <feGaussianBlur in="expanded" stdDeviation="1.5" />
+          </filter>
+        </defs>
+        <g filter={`url(#${silhouetteFilterId})`} fill="var(--paper)" fillRule="evenodd">
+          <path d={paths.linework} />
+          <path d={paths.glasses} />
+          <path d={paths.accents} />
+        </g>
+      </svg>
+      <svg
+        className={`dm-character-art dm-character-art--${variant}`}
+        ref={setRef}
+        viewBox="0 0 1254 1254"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Sriyaan character"
+        focusable="false"
+      >
+        <path className="dm-avatar-linework" fill="currentColor" fillRule="evenodd" d={paths.linework} />
+        <path className="dm-avatar-accent" fill="#ed202a" fillRule="evenodd" d={paths.glasses} />
+        <path className="dm-avatar-accent" fill="#315cff" fillRule="evenodd" d={paths.accents} />
+      </svg>
+    </>
   );
 }
 

@@ -2,7 +2,7 @@ export default function ContactFooter() {
   return (
     <footer id="contact" className="dm-footer">
       <div className="dm-narrow-column">
-        <h2>Let’s have coffee?</h2>
+        <h2>Let's Talk</h2>
         <div className="dm-contact-list">
           <div className="dm-contact-row"><small className="dm-contact-label">Name</small><span className="dm-contact-value">Sriyaan (Sheshanth Shetty)</span></div>
           <div className="dm-contact-row"><small className="dm-contact-label">Mail</small><a className="dm-contact-value" href="mailto:contact@sriyaan.me">contact@sriyaan.me</a></div>
@@ -12,7 +12,7 @@ export default function ContactFooter() {
         </div>
       </div>
       <div className="dm-footer-image" data-footer-image>
-        <img src="/images/mediterranean-coast-vector.svg" alt="Mediterranean coast landscape" />
+        <img src="/images/mediterranean-coast-vector.svg" data-dark-src="/images/coastal-exact-dark-transparent.png" alt="Mediterranean coast landscape" />
       </div>
       <div className="dm-narrow-column">
         <div className="dm-footer-bottom"><span>Digital products, built to reason.</span><span>© 2026 Sriyaan · Made with care</span><a href="#intro">Back to top ↑</a></div>
